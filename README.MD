@@ -42,5 +42,5 @@ $ make clean
 ```shell
 # brew install cookiecutter
 
-$ cookiecutter git@gitlab.gz.cvte.cn:it.Infrastructure/cc_gitops.git
+$ cookiecutter git@github.com:pyfs/cc-gitops.git
 ```

@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-uwsgi-svc
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-uwsgi
+  annotations:
+    kubesphere.io/description: {{cookiecutter.project_name.lower()}} backend service
+    
+{%- if cookiecutter.web_express.lower() == 'y' %}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-web-express-svc
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-web-express
+  annotations:
+    kubesphere.io/description: {{cookiecutter.project_name.lower()}} frontend service
+{%- endif %}

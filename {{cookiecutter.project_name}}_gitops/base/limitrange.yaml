@@ -1,0 +1,17 @@
+# namespace resource limit by container
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: {{cookiecutter.namespace.lower()}}
+  namespace: {{cookiecutter.namespace.lower()}}
+  annotations:
+    kubesphere.io/creator: admin
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: "1"
+        memory: 1000Mi
+      defaultRequest:
+        cpu: 100m
+        memory: 50Mi

@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{cookiecutter.namespace.lower()}}
+  annotations:
+    kubesphere.io/creator: admin
+    kubesphere.io/description: {{cookiecutter.project_desc.lower()}}
+  labels:
+    kubesphere.io/namespace: {{cookiecutter.namespace.lower()}}
+    kubesphere.io/workspace: {{cookiecutter.workspace.lower()}}

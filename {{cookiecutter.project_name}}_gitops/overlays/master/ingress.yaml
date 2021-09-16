@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubesphere.io/creator: admin
+    kubesphere.io/description: route of {{cookiecutter.project_name.lower()}}
+  name: {{cookiecutter.namespace.lower()}}
+  namespace: {{cookiecutter.namespace.lower()}}
+spec:
+  rules:
+  - host: {{cookiecutter.project_name.lower()}}-pro.gz.cvte.cn
+    http:
+      paths:
+      - backend:
+          serviceName: {{cookiecutter.project_name.lower()}}-uwsgi-svc
+          servicePort: 8000
+        path: /
+        pathType: ImplementationSpecific

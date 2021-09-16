@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-uwsgi-svc
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-uwsgi
+spec:
+  ports:
+    - port: 8000
+      name: http-8000
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app: {{cookiecutter.project_name.lower()}}-uwsgi
+
+{%- if cookiecutter.web_express.lower() == 'y' %}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-web-express-svc
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-web-express
+spec:
+  ports:
+    - port: 8080
+      name: http-8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: {{cookiecutter.project_name.lower()}}-web-express
+{%- endif %}

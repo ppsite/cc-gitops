@@ -1,0 +1,13 @@
+# namespace resource limitation
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{cookiecutter.namespace.lower()}}
+  namespace: {{cookiecutter.namespace.lower()}}
+  annotations:
+    kubesphere.io/creator: admin
+spec:
+  hard:
+    limits.cpu: "4"
+    limits.memory: 12Gi

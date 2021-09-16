@@ -1,0 +1,22 @@
+deploy:
+  stage: deploy
+  image: reg.gz.cvte.cn/alpine/utils:latest
+  only:
+    variables:
+      - $DEPLOY_IMAGE
+  before_script:
+    - mkdir ~/.ssh
+    - cat $DEPLOYMENT_KEY > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keygen -f ~/.ssh/id_rsa -y > ~/.ssh/id_rsa.pub
+    - ssh-keyscan -H "$CI_SERVER_HOST" >> ~/.ssh/known_hosts
+    - git remote set-url origin "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
+    - git config --global user.email "$GITLAB_USER_EMAIL"
+    - git config --global user.name "$GITLAB_USER_LOGIN"
+  script:
+    - git checkout $CI_COMMIT_BRANCH
+    - cd overlays/$CI_COMMIT_BRANCH
+    - kustomize edit set image $DEPLOY_IMAGE
+    - git commit -am "[$CI_COMMIT_BRANCH] $DEPLOY_IMAGE"
+    - git push

@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-worker
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{cookiecutter.project_name.lower()}}-worker
+  template:
+    metadata:
+      labels:
+        app: {{cookiecutter.project_name.lower()}}-worker
+    spec:
+      containers:
+        - name: {{cookiecutter.project_name.lower()}}-worker
+          image: {{cookiecutter.registry}}{{cookiecutter.project_name.lower()}}:master
+          imagePullPolicy: Always
+          env:
+            - name: EXEC_CMD
+              value: worker
+          envFrom:
+            - configMapRef:
+                name: envs
+      imagePullSecrets:
+        - name: registry-authentication

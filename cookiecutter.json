@@ -1,0 +1,9 @@
+{
+  "project_name": "new_django_project",
+  "project_desc": "project description",
+  "registry": "your mirror registry",
+  "workspace": "workspace",
+  "namespace": "namespace",
+  "use_celery": "Y",
+  "web_express": "Y"
+}

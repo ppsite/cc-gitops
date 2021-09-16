@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-beat
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-beat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{cookiecutter.project_name.lower()}}-beat
+  template:
+    metadata:
+      labels:
+        app: {{cookiecutter.project_name.lower()}}-beat
+    spec:
+      containers:
+        - name: {{cookiecutter.project_name.lower()}}-beat
+          image: {{cookiecutter.registry}}{{cookiecutter.project_name.lower()}}:master
+          imagePullPolicy: Always
+          env:
+            - name: EXEC_CMD
+              value: beat
+          envFrom:
+            - configMapRef:
+                name: envs
+      imagePullSecrets:
+        - name: registry-authentication

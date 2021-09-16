@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-web-express
+  labels:
+    app: {{cookiecutter.project_name.lower()}}-web-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{cookiecutter.project_name.lower()}}-web-express
+  template:
+    metadata:
+      labels:
+        app: {{cookiecutter.project_name.lower()}}-web-express
+    spec:
+      containers:
+        - name: {{cookiecutter.project_name.lower()}}-web-express
+          image: {{cookiecutter.registry}}{{cookiecutter.project_name.lower()}}-web:master
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http-8080
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 10Mi
+      imagePullSecrets:
+        - name: registry-authentication

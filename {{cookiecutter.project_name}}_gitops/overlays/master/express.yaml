@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.project_name.lower()}}-web-express
+  annotations:
+    kubesphere.io/description: {{cookiecutter.project_name.lower()}} frontend web express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{cookiecutter.project_name.lower()}}-web-express
+  template:
+    spec:
+      containers:
+        - name: {{cookiecutter.project_name.lower()}}-web-express
